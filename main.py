@@ -6,17 +6,9 @@ import yaml
 import os
 from fire import Fire 
 from enum import Enum
-import docker 
 
-client = docker.from_env()
+from configfunc import *
 
-STATE = {
-    'containers': []
-}
-
-def container(image, name = None, cmd = None):
-    client.containers.run(image = image, command = cmd, name = name)
-    
 def main(main_config_file):
     """
     Run containers from main config file
@@ -25,6 +17,8 @@ def main(main_config_file):
         stream = hy.read_many(f)
         for expr in stream:
             hy.eval(expr)        
+
+    ic(CONFIG_STATE)
 
 if __name__ == '__main__':
     Fire(main)

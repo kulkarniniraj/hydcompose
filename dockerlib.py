@@ -16,7 +16,7 @@ class ContainerVol(BaseModel):
 
 class EnvVar(BaseModel):
     key: str
-    val: str
+    value: str
 
 class ContainerDesc(BaseModel):
     name: str 
@@ -76,6 +76,6 @@ def _process_volumes(vols: List[ContainerVol]) -> list:
 def _process_env_vars(env_vars: List[EnvVar]) -> dict:
     out = {}
     for e in env_vars:
-        out[e.key] = e.val
+        out[e.key] = e.value
 
     return out
