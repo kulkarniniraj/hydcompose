@@ -2,6 +2,7 @@ import docker
 from pydantic import BaseModel
 from typing import List
 from icecream import ic
+from pprint import pprint, pformat
 
 type Client = docker.DockerClient
 type Container = docker.models.containers.Container
@@ -18,6 +19,13 @@ class EnvVar(BaseModel):
     key: str
     value: str
 
+class Dependency(BaseModel):
+    name: str 
+    event: str = 'after-start'
+
+class Stub(BaseModel):
+    name: str
+    depends_on: List[Dependency] = []    
 class ContainerDesc(BaseModel):
     name: str 
     image: str
@@ -25,6 +33,12 @@ class ContainerDesc(BaseModel):
     ports: List[ContainerPort] = []
     volumes: List[ContainerVol] = []
     env: List[EnvVar] = []
+    depends_on: List[Dependency] = []
+
+    def __repr__(self):
+        return pformat(vars(self), indent=3, width=4)
+
+
 
 def init() -> Client:
     client = docker.from_env()

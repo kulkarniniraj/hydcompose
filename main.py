@@ -6,8 +6,11 @@ import yaml
 import os
 from fire import Fire 
 from enum import Enum
+from pprint import pprint, pformat
 
 from configfunc import *
+import tree
+
 
 def main(main_config_file):
     """
@@ -18,7 +21,14 @@ def main(main_config_file):
         for expr in stream:
             hy.eval(expr)        
 
-    ic(CONFIG_STATE)
+    # pprint(CONFIG_STATE, depth = 2)
+
+
+    node_dict = tree.create_dep_tree(CONFIG_STATE['containers'])
+
+    for _, node in node_dict.items():
+        tree.print_node(node)
+        print()
 
 if __name__ == '__main__':
     Fire(main)
