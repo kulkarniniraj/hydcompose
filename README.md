@@ -1,5 +1,6 @@
-# hyconfig
-A python and hylang based configuration generator tool. Configuration can be written in lisp syntax with basic functions provided by python processor.
+# hydcompose
+A python and hylang based docker orchastration tool. Creates docker containers 
+based on dependency and events
 
 ## Source overview:
 - `main.py`: main entry point. pareses config file, creates list of container_descriptors
